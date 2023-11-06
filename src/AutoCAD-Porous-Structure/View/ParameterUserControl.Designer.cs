@@ -58,6 +58,7 @@ namespace View
             this.ParameterTextBox.Name = "ParameterTextBox";
             this.ParameterTextBox.Size = new System.Drawing.Size(100, 20);
             this.ParameterTextBox.TabIndex = 2;
+            this.ParameterTextBox.TextChanged += new System.EventHandler(this.ParameterTextBox_TextChanged);
             // 
             // ParameterUserControl
             // 
