@@ -32,10 +32,69 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AcCoreMgd">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcCoreMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AcCui">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcCui.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="AcDbMgd, Version=24.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcDbMgd.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="acdbmgdbrep">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\acdbmgdbrep.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="AcDx">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcDx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AcMgd">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AcMr">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcMr.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AcSeamless">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcSeamless.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AcTcMgd">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcTcMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AcWindows">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AdUIMgd">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AdUIMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AdUiPalettes">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AdUiPalettes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AdWindows">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Autodesk.AutoCAD.Interop">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc-x64\Autodesk.AutoCAD.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Autodesk.AutoCAD.Interop.Common">
+      <HintPath>..\..\..\..\..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc-x64\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="BenchmarkDotNet.Annotations, Version=0.13.10.0, Culture=neutral, PublicKeyToken=aa0ca2f9092cefc4, processorArchitecture=MSIL">
+      <HintPath>..\packages\BenchmarkDotNet.Annotations.0.13.10\lib\netstandard2.0\BenchmarkDotNet.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Vbe.Interop, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -59,6 +118,13 @@
     <Compile Include="PorousBuilder.cs" />
     <Compile Include="PorousParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

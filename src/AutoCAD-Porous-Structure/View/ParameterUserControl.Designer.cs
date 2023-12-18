@@ -40,7 +40,7 @@ namespace View
             // 
             this.ParameterNameLabel.Location = new System.Drawing.Point(3, 6);
             this.ParameterNameLabel.Name = "ParameterNameLabel";
-            this.ParameterNameLabel.Size = new System.Drawing.Size(55, 13);
+            this.ParameterNameLabel.Size = new System.Drawing.Size(67, 13);
             this.ParameterNameLabel.TabIndex = 0;
             this.ParameterNameLabel.Text = "Name";
             // 
@@ -48,7 +48,7 @@ namespace View
             // 
             this.ParameterBordersLabel.Location = new System.Drawing.Point(182, 6);
             this.ParameterBordersLabel.Name = "ParameterBordersLabel";
-            this.ParameterBordersLabel.Size = new System.Drawing.Size(43, 13);
+            this.ParameterBordersLabel.Size = new System.Drawing.Size(89, 13);
             this.ParameterBordersLabel.TabIndex = 1;
             this.ParameterBordersLabel.Text = "Borders";
             // 
@@ -59,6 +59,7 @@ namespace View
             this.ParameterTextBox.Size = new System.Drawing.Size(100, 20);
             this.ParameterTextBox.TabIndex = 2;
             this.ParameterTextBox.TextChanged += new System.EventHandler(this.ParameterTextBox_TextChanged);
+            this.ParameterTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ParameterTextBox_KeyPress);
             // 
             // ParameterUserControl
             // 
@@ -71,6 +72,7 @@ namespace View
             this.Size = new System.Drawing.Size(274, 26);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Label ParameterNameLabel;
