@@ -1,5 +1,8 @@
 ﻿namespace Model
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows.Media.Media3D;
     using Autodesk.AutoCAD.ApplicationServices;
     using Autodesk.AutoCAD.DatabaseServices;
     using Autodesk.AutoCAD.Geometry;
@@ -40,8 +43,8 @@
                 parameters[ParameterType.Height].Value);
             var poreSize = parameters[ParameterType.PoreSize].Value;
 
-            var noiseGenerator = new NoiseGenerator();
-            var pointsArray = noiseGenerator.Generate(parameters);
+            var noiseGenerator = new NoiseGenerator(new Randomizer());
+            var pointsArray = ConvertPoints(noiseGenerator.Generate(parameters)).ToList();
 
             var sphere = new Solid3d();
             box = new Solid3d();
@@ -57,6 +60,11 @@
                     Matrix3d.Displacement(pointsArray[i] - Point3d.Origin));
                 box.BooleanOperation(BooleanOperationType.BoolSubtract, sphere);
             }
+        }
+
+        private IEnumerable<Point3d> ConvertPoints(List<Point3D> points)
+        {
+            return points.Select(point => new Point3d(point.X, point.Y, point.Z));
         }
     }
 }

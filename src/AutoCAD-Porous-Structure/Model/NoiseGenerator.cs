@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Autodesk.AutoCAD.Geometry;
+    using System.Windows.Media.Media3D;
 
     /// <summary>
     /// Класс генератора шума.
@@ -10,20 +10,34 @@
     public class NoiseGenerator
     {
         /// <summary>
-        /// Массив с точками.
-        /// </summary>
-        private List<Point3d> _noise;
-
-        /// <summary>
         /// Генератор чисел.
         /// </summary>
-        private static readonly Random Random = new Random();
+        private readonly IRandomize _randomizer;
+
+        /// <summary>
+        /// Массив с точками.
+        /// </summary>
+        private List<Point3D> _noise;
+
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="randomizer">Генератор случайных чисел.</param>
+        public NoiseGenerator(IRandomize randomizer)
+        {
+            _randomizer = randomizer;
+        }
 
         /// <summary>
         /// Генерирует массив с точками.
         /// </summary>
-        public List<Point3d> Generate(PorousParameter parameters)
+        public List<Point3D> Generate(PorousParameter parameters)
         {
+            if (parameters == null)
+            {
+                return new List<Point3D>();
+            }
+
             (double lenght, double width, double height) size = (
                 parameters[ParameterType.Length].Value,
                 parameters[ParameterType.Width].Value,
@@ -43,14 +57,14 @@
         /// </summary>
         private void GenerateNoise((double lenght, double width, double height) size, int spheresCount)
         {
-            _noise = new List<Point3d>();
+            _noise = new List<Point3D>();
 
             for (int i = 0; i < spheresCount; i++)
             {
-                var point = new Point3d(
-                    Random.NextDouble() * size.lenght,
-                    Random.NextDouble() * size.width,
-                    Random.NextDouble() * size.height);
+                var point = new Point3D(
+                    _randomizer.NextDouble() * size.lenght,
+                    _randomizer.NextDouble() * size.width,
+                    _randomizer.NextDouble() * size.height);
                 _noise.Add(point);
             }
         }
