@@ -1,6 +1,5 @@
 ﻿namespace Tests
 {
-    using System;
     using System.Collections.Generic;
     using System.Windows.Media.Media3D;
     using Model;
@@ -13,13 +12,13 @@
         public void Generator_SetEmptyParameters_GetFilledList()
         {
             // Arrange
-            var noiseGenerator = new NoiseGenerator(new FakeRandomizer());
+            var pointsCount = 41;
             var parameters = new PorousParameter();
-            var pointsCount = GetPointsCount(parameters);
+            var noiseGenerator = new NoiseGenerator(new FakeRandomizer());
             var expected = new Point3D(
-                0.5 * parameters[ParameterType.Length].Value,
-                0.5 * parameters[ParameterType.Width].Value,
-                0.5 * parameters[ParameterType.Height].Value);
+                FakeRandomizer.FakeRandomNumber * parameters[ParameterType.Length].Value,
+                FakeRandomizer.FakeRandomNumber * parameters[ParameterType.Width].Value,
+                FakeRandomizer.FakeRandomNumber * parameters[ParameterType.Height].Value);
 
             // Act
             var points = noiseGenerator.Generate(parameters);
@@ -58,6 +57,20 @@
             });
         }
 
+        [Test(Description = "Проверяет функцию обратного нормального распределения.")]
+        public void Generator_InverseNormalDistribution_GetCorrectValue()
+        {
+            // Arrange
+            var expected = 0.12d;
+            var noiseGenerator = new NoiseGenerator(new FakeRandomizer());
+
+            // Act
+            var actual = noiseGenerator.InverseNormalDistribution();
+
+            // Assert
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
         /// <summary>
         /// Создаёт пустые параметры.
         /// </summary>
@@ -72,18 +85,6 @@
                     Value = 0
                 }
             };
-        }
-
-        private int GetPointsCount(PorousParameter parameters)
-        {
-            (double lenght, double width, double height) size = (
-                parameters[ParameterType.Length].Value,
-                parameters[ParameterType.Width].Value,
-                parameters[ParameterType.Height].Value);
-
-            var volume = size.lenght * size.width * size.height;
-            var sphereVolume = 4d / 3d * Math.PI * Math.Pow(parameters[ParameterType.PoreSize].Value, 3);
-            return (int)(volume * parameters[ParameterType.Porosity].Value * 0.01 / sphereVolume);
         }
     }
 }
