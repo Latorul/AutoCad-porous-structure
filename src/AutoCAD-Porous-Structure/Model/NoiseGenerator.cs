@@ -45,12 +45,20 @@
 
             var volume = size.lenght * size.width * size.height;
             var sphereVolume = 4d / 3d * Math.PI * Math.Pow(parameters[ParameterType.PoreSize].Value, 3);
-            var spheresCount = (int)(volume * parameters[ParameterType.Porosity].Value * 0.01 / sphereVolume);
+            var spheresCount = (int)Math.Ceiling(volume * parameters[ParameterType.Porosity].Value * 0.01 / sphereVolume);
 
             GenerateNoise(size, spheresCount);
 
             return _noise;
         }
+
+        /// <summary>
+        /// Создаёт вещественное число по закону обратного нормального распределения.
+        /// </summary>
+        /// <returns>Число от -1 до 1.</returns>
+        public double InverseNormalDistribution()
+            => (GetUniformDistribution() -
+                (GetUniformDistribution() * GetUniformDistribution())) / 2;
 
         /// <summary>
         /// Заполняет массив случайными значениями.
@@ -68,5 +76,12 @@
                 _noise.Add(point);
             }
         }
+
+        /// <summary>
+        /// Создаёт вещественное число по закону равномерного распределения.
+        /// </summary>
+        /// <returns>Число от -1 до 1.</returns>
+        private double GetUniformDistribution()
+            => (_randomizer.NextDouble() * 2) - 1;
     }
 }

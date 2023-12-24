@@ -55,13 +55,24 @@
 
             for (int i = 0; i < pointsArray.Count; i++)
             {
-                sphere.CreateSphere(poreSize);
+                var delta = noiseGenerator.InverseNormalDistribution();
+                if (poreSize + delta <= 0)
+                {
+                    delta = 0;
+                }
+
+                sphere.CreateSphere(poreSize + delta);
                 sphere.TransformBy(
                     Matrix3d.Displacement(pointsArray[i] - Point3d.Origin));
                 box.BooleanOperation(BooleanOperationType.BoolSubtract, sphere);
             }
         }
 
+        /// <summary>
+        /// Конвертирует стандартный тип трёхмерной точки в тип Автокада.
+        /// </summary>
+        /// <param name="points">Список точек стандартного типа.</param>
+        /// <returns>Сконвертированные точки.</returns>
         private IEnumerable<Point3d> ConvertPoints(List<Point3D> points)
         {
             return points.Select(point => new Point3d(point.X, point.Y, point.Z));
