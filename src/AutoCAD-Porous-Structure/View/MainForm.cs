@@ -113,12 +113,12 @@
             }
             finally
             {
-                UpdateBordersText();
-
                 foreach (var control in _parameterUserControls)
                 {
                     Validate(control);
                 }
+
+                UpdateBordersText();
             }
         }
 
@@ -128,21 +128,22 @@
         /// <param name="parameterUserControl">Изменяемый параметр.</param>
         private void Validate(ParameterUserControl parameterUserControl)
         {
+            var parameterType = parameterUserControl.ParameterType;
             try
             {
                 parameterUserControl.HasError = false;
-                _errors[parameterUserControl.ParameterType] = string.Empty;
+                _errors[parameterType] = string.Empty;
 
                 double.TryParse(parameterUserControl.ParameterText, out double value);
-                Parameters[parameterUserControl.ParameterType].Value = value;
+                Parameters[parameterType].Value = value;
 
                 Parameters.ValidateDependentParameters();
             }
             catch (ArgumentException e)
             {
                 parameterUserControl.HasError = true;
-                _errors[parameterUserControl.ParameterType] =
-                    $"• {_parameterTypeName[parameterUserControl.ParameterType]}:" +
+                _errors[parameterType] =
+                    $"• {_parameterTypeName[parameterType]}:" +
                     $" {e.Message}";
             }
         }

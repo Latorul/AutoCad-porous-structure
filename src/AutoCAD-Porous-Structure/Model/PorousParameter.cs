@@ -10,9 +10,9 @@
     public class PorousParameter
     {
         /// <summary>
-        /// Словарь со всеми параметрами.
+        /// Минимальное значение зависимых параметров.
         /// </summary>
-        private readonly Dictionary<ParameterType, Parameter> _parameters;
+        private readonly double _minDependentValue = 1;
 
         /// <summary>
         /// Минимальное значение независимого параметра.
@@ -20,9 +20,9 @@
         private readonly double _minIndependentValue = 0.001;
 
         /// <summary>
-        /// Минимальное значение зависимых параметров.
+        /// Словарь со всеми параметрами.
         /// </summary>
-        private readonly double _minDependentValue = 1;
+        private readonly Dictionary<ParameterType, Parameter> _parameters;
 
         /// <summary>
         /// Конструктор класса.
