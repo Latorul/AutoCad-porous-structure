@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connector", "Connector\Conn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{89C46DBD-FE6B-43C5-9CBC-608119336088}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StressTest", "StressTest\StressTest.csproj", "{5BC268A8-6385-4E89-8763-345D6F4A2EC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +35,15 @@ Global
 		{89C46DBD-FE6B-43C5-9CBC-608119336088}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89C46DBD-FE6B-43C5-9CBC-608119336088}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89C46DBD-FE6B-43C5-9CBC-608119336088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BC268A8-6385-4E89-8763-345D6F4A2EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BC268A8-6385-4E89-8763-345D6F4A2EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BC268A8-6385-4E89-8763-345D6F4A2EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BC268A8-6385-4E89-8763-345D6F4A2EC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16EA9458-9A2F-43DB-9038-9266165D783E}
 	EndGlobalSection
 EndGlobal

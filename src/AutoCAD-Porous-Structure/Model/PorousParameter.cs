@@ -84,10 +84,10 @@
         public Parameter this[ParameterType type] => _parameters[type];
 
         /// <summary>
-        /// argesf.
+        /// Устанавливает значение параметру.
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="value"></param>
+        /// <param name="type">Тип параметра.</param>
+        /// <param name="value">Новое значение параметра.</param>
         public void SetValue(ParameterType type, double value)
         {
             this[type].Value = value;
