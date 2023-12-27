@@ -29,6 +29,7 @@
         /// <summary>
         /// Конструктор Формы.
         /// </summary>
+        /// <param name="parameters">Параметры для структуры.</param>
         public MainForm(PorousParameter parameters)
         {
             Parameters = parameters;
@@ -81,14 +82,14 @@
         /// </summary>
         private void InitializeParameterUserControls()
         {
-            _parameterUserControls = new List<ParameterUserControl>
-            {
+            _parameterUserControls =
+            [
                 LengthParameterUserControl,
                 WidthParameterUserControl,
                 HeightParameterUserControl,
                 PorosityParameterUserControl,
                 PoreSizeParameterUserControl
-            };
+            ];
 
             _parameterUserControls.ForEach(p =>
             {
@@ -101,25 +102,14 @@
         /// <summary>
         /// Событие обновления элемента управления.
         /// </summary>
-        /// <param name="sender">Вызвавший элемент управления.</param>
-        private void OnParameterUserControlChanged(ParameterUserControl sender)
+        private void OnParameterUserControlChanged()
         {
-            try
+            foreach (var control in _parameterUserControls)
             {
-                Validate(sender);
+                Validate(control);
             }
-            catch
-            {
-            }
-            finally
-            {
-                foreach (var control in _parameterUserControls)
-                {
-                    Validate(control);
-                }
 
-                UpdateBordersText();
-            }
+            UpdateBordersText();
         }
 
         /// <summary>
@@ -135,9 +125,7 @@
                 _errors[parameterType] = string.Empty;
 
                 double.TryParse(parameterUserControl.ParameterText, out double value);
-                Parameters[parameterType].Value = value;
-
-                Parameters.ValidateDependentParameters();
+                Parameters.SetValue(parameterType, value);
             }
             catch (ArgumentException e)
             {
@@ -158,8 +146,8 @@
                 MessageBox.Show(
                     string.Join(
                         Environment.NewLine,
-                        _errors.Values.Where(e => e.Length > 0)),
-                    "Обнаружены конфликтующие значения параметров",
+                        _errors.Values.Where(error => error.Length > 0)),
+                    "Обнаружены конфликтующие значения параметров.",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -185,6 +173,14 @@
 
                 parameterUserControl.ParameterBorders = (minValue, maxValue);
             }
+        }
+
+        /// <summary>
+        /// Устанавливает фокус на кнопке.
+        /// </summary>
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            BuildButton.Focus();
         }
     }
 }

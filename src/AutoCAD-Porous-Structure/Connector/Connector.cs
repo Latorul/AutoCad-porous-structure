@@ -12,10 +12,10 @@
         /// <summary>
         /// Команда, вызываемая из AutoCAD.
         /// </summary>
-        [CommandMethod("PORK")]
+        [CommandMethod("POROUS")]
         public void OpenPorousStructureBuilderForm()
         {
-            if (!OpenMainForm(out PorousParameter porousParameter))
+            if (!OpenMainForm(out var porousParameter))
             {
                 return;
             }

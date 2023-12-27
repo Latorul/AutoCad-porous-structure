@@ -60,10 +60,9 @@
             ParameterType firstDependentType,
             ParameterType secondDependentType)
         {
-            // Arrange  
+            // Arrange
             var parameters = new PorousParameter();
-            parameters[independentType].Value = 0.01;
-            parameters.ValidateDependentParameters();
+            parameters.SetValue(independentType, 0.001);
 
             // Assert
             Assert.Multiple(() =>
@@ -71,14 +70,14 @@
                 Assert.Throws<ArgumentException>(() =>
                     {
                         // Act
-                        parameters[firstDependentType].Value = 0.01;
+                        parameters[firstDependentType].Value = 0.001;
                     },
                     "Должно выбросить исключение о " +
                     "невозможности присвоить значение меньше 1.");
                 Assert.Throws<ArgumentException>(() =>
                     {
                         // Act
-                        parameters[secondDependentType].Value = 0.01;
+                        parameters[secondDependentType].Value = 0.001;
                     },
                     "Должно выбросить исключение о " +
                     "невозможности присвоить значение меньше 1.");
@@ -98,11 +97,11 @@
             var parameters = new PorousParameter();
 
             // Act
-            SetValue(parameters, ParameterType.Length, length);
-            SetValue(parameters, ParameterType.Width, width);
-            SetValue(parameters, ParameterType.Height, height);
-            SetValue(parameters, ParameterType.Porosity, porosity);
-            SetValue(parameters, ParameterType.PoreSize, poreSize);
+            parameters.SetValue(ParameterType.Length, length);
+            parameters.SetValue(ParameterType.Width, width);
+            parameters.SetValue(ParameterType.Height, height);
+            parameters.SetValue(ParameterType.Porosity, porosity);
+            parameters.SetValue(ParameterType.PoreSize, poreSize);
 
             // Assert
             Assert.Multiple(() =>
@@ -118,21 +117,6 @@
                 Assert.That(parameters[ParameterType.PoreSize].Value,
                     Is.EqualTo(poreSize));
             });
-        }
-
-        /// <summary>
-        /// Присваивает значение параметру.
-        /// </summary>
-        /// <param name="parameters">Словарь с параметрами.</param>
-        /// <param name="type">Присваиваемый тип.</param>
-        /// <param name="value">Присваиваемое значение.</param>
-        private void SetValue(
-            PorousParameter parameters,
-            ParameterType type,
-            double value)
-        {
-            parameters[type].Value = value;
-            parameters.ValidateDependentParameters();
         }
     }
 }

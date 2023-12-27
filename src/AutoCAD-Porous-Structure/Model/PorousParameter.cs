@@ -84,11 +84,31 @@
         public Parameter this[ParameterType type] => _parameters[type];
 
         /// <summary>
+        /// argesf.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="value"></param>
+        public void SetValue(ParameterType type, double value)
+        {
+            this[type].Value = value;
+            ValidateDependentParameters();
+        }
+
+        /// <summary>
+        /// Достаёт размеры из параметров.
+        /// </summary>
+        /// <returns>Кортеж с длиной, шириной и высотой.</returns>
+        public (double lenght, double width, double height) GetSizes()
+            => (this[ParameterType.Length].Value,
+                this[ParameterType.Width].Value,
+                this[ParameterType.Width].Value);
+
+        /// <summary>
         /// Проверяет значения между собой на соответствие граничным условиям.
         /// </summary>
         /// <exception cref="AggregateException">
         /// Обнаружены конфликтующие значения параметров.</exception>
-        public void ValidateDependentParameters()
+        private void ValidateDependentParameters()
         {
             var dependentParameters = _parameters
                 .Where(parameter => IsDependentParameterType(parameter.Key));
@@ -96,7 +116,8 @@
             try
             {
                 var independentParameterType =
-                    dependentParameters.Single(c => c.Value.Value < _minDependentValue).Key;
+                    dependentParameters.Single(c =>
+                    c.Value.Value < _minDependentValue).Key;
 
                 UpdateBorders(independentParameterType);
             }
@@ -133,7 +154,7 @@
         }
 
         /// <summary>
-        /// Определяет является ли тип параметра зависимым.
+        /// Определяет, является ли тип параметра зависимым.
         /// </summary>
         /// <param name="type">Проверяемый тип.</param>
         /// <returns>

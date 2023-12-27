@@ -49,8 +49,7 @@
         /// <summary>
         /// Обрабатывает событие изменения данных.
         /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        public delegate void ParameterChangedHandler(ParameterUserControl sender);
+        public delegate void ParameterChangedHandler();
 
         /// <summary>
         /// Событие, извещающее об изменении значения в поле для ввода.
@@ -117,7 +116,7 @@
         private void ParameterTextBox_TextChanged(object sender, EventArgs e)
         {
             RemoveExtraCommas();
-            ParameterUserControlChanged.Invoke(this);
+            ParameterUserControlChanged!.Invoke();
 
             if (ParameterTextBox.Text.Length == 0)
             {

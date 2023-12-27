@@ -38,15 +38,8 @@
                 return new List<Point3D>();
             }
 
-            (double lenght, double width, double height) size = (
-                parameters[ParameterType.Length].Value,
-                parameters[ParameterType.Width].Value,
-                parameters[ParameterType.Height].Value);
-
-            var volume = size.lenght * size.width * size.height;
-            var sphereVolume = 4d / 3d * Math.PI * Math.Pow(parameters[ParameterType.PoreSize].Value, 3);
-            var spheresCount = (int)Math.Ceiling(volume * parameters[ParameterType.Porosity].Value * 0.01 / sphereVolume);
-
+            var size = parameters.GetSizes();
+            var spheresCount = CalculateSpheresCount(parameters);
             GenerateNoise(size, spheresCount);
 
             return _noise;
@@ -61,9 +54,36 @@
                 (GetUniformDistribution() * GetUniformDistribution())) / 2;
 
         /// <summary>
+        /// Вычисляет количество отверстий.
+        /// </summary>
+        /// <param name="parameters">Параметры.</param>
+        /// <returns>Количество отверстий.</returns>
+        private int CalculateSpheresCount(PorousParameter parameters)
+        {
+            var volume =
+                parameters[ParameterType.Length].Value
+                * parameters[ParameterType.Width].Value
+                * parameters[ParameterType.Width].Value;
+
+            var sphereVolume =
+                4d / 3d
+                * Math.PI
+                * Math.Pow(parameters[ParameterType.PoreSize].Value, 3);
+
+            var spheresCount =
+                (int)Math.Ceiling(
+                    volume * parameters[ParameterType.Porosity].Value * 0.01
+                    / sphereVolume);
+
+            return spheresCount;
+        }
+
+        /// <summary>
         /// Заполняет массив случайными значениями.
         /// </summary>
-        private void GenerateNoise((double lenght, double width, double height) size, int spheresCount)
+        private void GenerateNoise(
+            (double lenght, double width, double height) size,
+            int spheresCount)
         {
             _noise = new List<Point3D>();
 
