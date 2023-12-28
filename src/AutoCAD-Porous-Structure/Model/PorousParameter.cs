@@ -101,7 +101,7 @@
         public (double lenght, double width, double height) GetSizes()
             => (this[ParameterType.Length].Value,
                 this[ParameterType.Width].Value,
-                this[ParameterType.Width].Value);
+                this[ParameterType.Height].Value);
 
         /// <summary>
         /// Проверяет значения между собой на соответствие граничным условиям.
