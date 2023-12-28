@@ -118,5 +118,89 @@
                     Is.EqualTo(poreSize));
             });
         }
+
+        [Test(Description = "Проверка присвоения корректного значения.")]
+        public void SetValue_SetCorrectValue_NoExceptionThrown()
+        {
+            // Arrange
+            var parameters = new PorousParameter();
+
+            // Assert
+            Assert.DoesNotThrow(() =>
+                    // Act
+                    parameters.SetValue(ParameterType.Length, 1),
+                "Не должно выбрасывать исключение при присвоении корректного значения.");
+        }
+
+        [Test(Description = "Проверка присвоения некорректного значения.")]
+        public void SetValue_SetIncorrectValue_ThrowArgumentException()
+        {
+            // Arrange
+            var parameters = new PorousParameter();
+
+            Assert.Throws<ArgumentException>(() =>
+                {
+                    // Act
+                    parameters.SetValue(ParameterType.Length, -1);
+                },
+                "Должно выбросить исключение о " +
+                "невозможности присвоить отрицательное значение.");
+        }
+
+        [Test(Description = "Проверка возвращения параметров.")]
+        public void GetSizes_GotSameValues()
+        {
+            // Arrange
+            var parameters = new PorousParameter();
+            var expectedLength = parameters[ParameterType.Length].Value;
+            var expectedWidth = parameters[ParameterType.Width].Value;
+            var expectedHeight = parameters[ParameterType.Height].Value;
+
+            // Act
+            var actual = parameters.GetSizes();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actual.lenght, Is.EqualTo(expectedLength));
+                Assert.That(actual.width, Is.EqualTo(expectedWidth));
+                Assert.That(actual.height, Is.EqualTo(expectedHeight));
+            });
+        }
+
+        [Test(Description = "Проверяет индексирование словаря.")]
+        public void Indexer_GotSameValues()
+        {
+            // Arrange
+            var parameters = new PorousParameter();
+            var expectedLength = 3;
+            var expectedWidth = 3;
+            var expectedHeight = 3;
+            var expectedPorosity = 3;
+            var expectedPoreSize = 3;
+
+            parameters.SetValue(ParameterType.Length, expectedLength);
+            parameters.SetValue(ParameterType.Width, expectedWidth);
+            parameters.SetValue(ParameterType.Height, expectedHeight);
+            parameters.SetValue(ParameterType.Porosity, expectedPorosity);
+            parameters.SetValue(ParameterType.PoreSize, expectedPoreSize);
+
+            // Act 
+            var actualLength = parameters[ParameterType.Length].Value;
+            var actualWidth = parameters[ParameterType.Width].Value;
+            var actualHeight = parameters[ParameterType.Height].Value;
+            var actualPorosity = parameters[ParameterType.Porosity].Value;
+            var actualPoreSize = parameters[ParameterType.PoreSize].Value;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualLength, Is.EqualTo(expectedLength));
+                Assert.That(actualWidth, Is.EqualTo(expectedWidth));
+                Assert.That(actualHeight, Is.EqualTo(expectedHeight));
+                Assert.That(actualPorosity, Is.EqualTo(expectedPorosity));
+                Assert.That(actualPoreSize, Is.EqualTo(expectedPoreSize));
+            });
+        }
     }
 }

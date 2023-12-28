@@ -8,7 +8,7 @@
     [TestFixture]
     public class NoiseGeneratorTests
     {
-        [Test(Description = "Проверяет Наличие точек при создании шума.")]
+        [Test(Description = "Проверяет наличие точек при создании шума.")]
         public void Generator_SetEmptyParameters_GetFilledList()
         {
             // Arrange
